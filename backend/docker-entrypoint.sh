@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+echo "Starting SmartCivicAI..."
+
 echo "Running Alembic migrations..."
 alembic upgrade head || echo "Migration failed, continuing..."
 
