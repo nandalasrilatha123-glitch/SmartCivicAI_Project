@@ -70,5 +70,5 @@ docker compose down -v         # stop containers AND delete the Postgres/
 - **Frontend loads but API calls fail**: the frontend's API base URL is
   baked in at *build* time (Vite convention) from `VITE_API_BASE_URL` in
   `docker-compose.yml`'s `frontend.build.args` — it must be a URL your
-  **browser** can reach (`http://localhost:8000/api/v1` with the default
+  **browser** can reach (`https://smartcivicai-backend.onrender.com/api/v1` with the default
   port mapping), not the Docker-internal service name `http://backend:8000`.

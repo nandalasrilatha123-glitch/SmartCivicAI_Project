@@ -9,7 +9,7 @@ import {
 } from "../../services/complaintService";
 import { apiErrorMessage } from "../../services/api";
 
-const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1").replace(/\/api\/v1\/?$/, "");
+const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "https://smartcivicai-backend.onrender.com/api/v1").replace(/\/api\/v1\/?$/, "");
 const NEXT_STATUSES = ["ASSIGNED", "IN_PROGRESS", "ESCALATED", "REJECTED"];
 
 export default function OfficerComplaintDetail() {

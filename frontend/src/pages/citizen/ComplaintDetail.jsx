@@ -9,7 +9,7 @@ import { getComplaint, getComplaintHistory, submitFeedback } from "../../service
 import { apiErrorMessage } from "../../services/api";
 import { MODULE_LABEL_KEYS } from "../../utils/statusMeta";
 
-const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1").replace(/\/api\/v1\/?$/, "");
+const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "https://smartcivicai-backend.onrender.com/api/v1").replace(/\/api\/v1\/?$/, "");
 
 export default function ComplaintDetail() {
   const { id } = useParams();

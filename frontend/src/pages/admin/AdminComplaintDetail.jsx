@@ -16,7 +16,7 @@ const MODULES = ["GOVERNMENT_SCHOOLS", "AGRICULTURE", "HEALTHCARE", "TRAFFIC"];
 const STATUSES = ["NEW", "PENDING", "ASSIGNED", "IN_PROGRESS", "RESOLVED", "REJECTED", "ESCALATED", "REQUIRES_ADMIN_REVIEW"];
 const PRIORITIES = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
 
-const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1").replace(/\/api\/v1\/?$/, "");
+const API_ORIGIN = (import.meta.env.VITE_API_BASE_URL || "https://smartcivicai-backend.onrender.com/api/v1").replace(/\/api\/v1\/?$/, "");
 
 export default function AdminComplaintDetail() {
   const { id } = useParams();

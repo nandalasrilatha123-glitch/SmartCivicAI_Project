@@ -2,7 +2,7 @@
 
 ```
 cd frontend
-cp .env.example .env       # defaults to http://localhost:8000/api/v1 — fine if backend runs on its default port
+cp .env.example .env       # defaults to https://smartcivicai-backend.onrender.com/api/v1 — fine if backend runs on its default port
 npm install
 npm run dev
 ```

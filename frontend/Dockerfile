@@ -13,8 +13,8 @@ COPY . .
 # Baked in at BUILD time (Vite convention) — this must be the URL the
 # user's BROWSER can reach, not the Docker-internal service name. With the
 # default docker-compose.yml port mapping (backend published on host
-# port 8000), http://localhost:8000/api/v1 is correct for local use.
-ARG VITE_API_BASE_URL=http://localhost:8000/api/v1
+# port 8000), https://smartcivicai-backend.onrender.com/api/v1 is correct for local use.
+ARG VITE_API_BASE_URL=https://smartcivicai-backend.onrender.com/api/v1
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
 RUN npm run build

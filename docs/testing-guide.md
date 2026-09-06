@@ -24,7 +24,7 @@ few seconds because it runs the AI pipeline once per demo complaint.
 
 ## 3. Register + login
 ```bash
-curl -X POST http://localhost:8000/api/v1/auth/login \
+curl -X POST https://smartcivicai-backend.onrender.com/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"citizen@smartcivicai.gov.in","password":"Demo@1234"}'
 ```
@@ -36,13 +36,13 @@ export TOKEN="paste-access-token-here"
 
 ## 4. List modules (public, no auth needed)
 ```bash
-curl http://localhost:8000/api/v1/modules
+curl https://smartcivicai-backend.onrender.com/api/v1/modules
 ```
 Expect all 4 modules with their categories nested.
 
 ## 5. Submit a complaint (multipart form, no image)
 ```bash
-curl -X POST http://localhost:8000/api/v1/complaints \
+curl -X POST https://smartcivicai-backend.onrender.com/api/v1/complaints \
   -H "Authorization: Bearer $TOKEN" \
   -F "module=TRAFFIC" \
   -F "description=There is a large pothole on Main Road causing accidents." \
@@ -55,14 +55,14 @@ Expect a 201 with a `complaint_number` like `TRF-2026-000061`, a `priority`
 
 ## 6. List your own complaints
 ```bash
-curl http://localhost:8000/api/v1/complaints -H "Authorization: Bearer $TOKEN"
+curl https://smartcivicai-backend.onrender.com/api/v1/complaints -H "Authorization: Bearer $TOKEN"
 ```
 Expect the complaint from step 5 plus nothing from other citizens (role
 scoping — citizens only see their own).
 
 ## 7. Login as admin and see everything
 ```bash
-curl -X POST http://localhost:8000/api/v1/auth/login -H "Content-Type: application/json" \
+curl -X POST https://smartcivicai-backend.onrender.com/api/v1/auth/login -H "Content-Type: application/json" \
   -d '{"email":"admin@smartcivicai.gov.in","password":"Demo@1234"}'
 ```
 Use that token to hit `GET /api/v1/complaints` — should now return ~61
@@ -70,10 +70,10 @@ complaints (60 seeded + your test one) across all modules/statuses.
 
 ## 8. Check the dashboard endpoints (admin token from step 7)
 ```bash
-curl http://localhost:8000/api/v1/analytics/overview -H "Authorization: Bearer $ADMIN_TOKEN"
-curl "http://localhost:8000/api/v1/analytics/over-time?granularity=month" -H "Authorization: Bearer $ADMIN_TOKEN"
-curl http://localhost:8000/api/v1/analytics/hotspots -H "Authorization: Bearer $ADMIN_TOKEN"
-curl http://localhost:8000/api/v1/analytics/predicted-volume -H "Authorization: Bearer $ADMIN_TOKEN"
+curl https://smartcivicai-backend.onrender.com/api/v1/analytics/overview -H "Authorization: Bearer $ADMIN_TOKEN"
+curl "https://smartcivicai-backend.onrender.com/api/v1/analytics/over-time?granularity=month" -H "Authorization: Bearer $ADMIN_TOKEN"
+curl https://smartcivicai-backend.onrender.com/api/v1/analytics/hotspots -H "Authorization: Bearer $ADMIN_TOKEN"
+curl https://smartcivicai-backend.onrender.com/api/v1/analytics/predicted-volume -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 Expect: `overview.total` around 61, `over-time` showing counts spread
 across the last ~4 months (seed data is backdated), `hotspots` returning
@@ -115,7 +115,7 @@ Restart uvicorn, then trigger training explicitly (don't skip this — the
 first `predicted-volume` call will also auto-train if no model exists yet,
 but this way you see the metrics directly):
 ```bash
-curl -X POST "http://localhost:8000/api/v1/analytics/train-prediction-model" \
+curl -X POST "https://smartcivicai-backend.onrender.com/api/v1/analytics/train-prediction-model" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 Expect JSON with `mae`/`r2` and `training_rows` — with only ~60 seed
@@ -125,7 +125,7 @@ labeled as such, see `docs/BUILD_STATUS.md` Part 9).
 
 Then fetch a forecast and confirm which model actually ran:
 ```bash
-curl "http://localhost:8000/api/v1/analytics/predicted-volume" -H "Authorization: Bearer $ADMIN_TOKEN"
+curl "https://smartcivicai-backend.onrender.com/api/v1/analytics/predicted-volume" -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 `model_name` should read `"xgboost"` (or `"sklearn_gbr"` if xgboost isn't
 installed) rather than `"demo_linear_trend"`.

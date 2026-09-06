@@ -549,7 +549,7 @@ SmartCivicAI/
   rather than leaving it as a surprise.
 - **Frontend's API URL is a build-time arg, not runtime.** Vite bakes
   `import.meta.env.VITE_API_BASE_URL` in at build time, and it needs to be
-  a URL the *browser* can reach (`http://localhost:8000/api/v1`), not the
+  a URL the *browser* can reach (`https://smartcivicai-backend.onrender.com/api/v1`), not the
   Docker-internal service name (`http://backend:8000`) — a common Docker+
   Vite mistake, called out directly in `docs/docker-setup.md`'s
   troubleshooting section rather than left for you to debug.
