@@ -34,41 +34,10 @@ SmartCivicAI is an AI-powered civic complaint management platform that helps cit
 
 ## Project Structure
 
-```
+```text
 SmartCivicAI_Project/
 ├── backend/
 ├── frontend/
 ├── models/
 ├── uploads/
 └── README.md
-```
-
-## Installation
-
-### Backend
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## Deployment
-
-This project can be deployed on Render using GitHub integration.
-
-## Author
-
-## Author
-
-**Srilatha Nandala**
-- GitHub: nandalasrilatha123-glitch
-- Email: nandalasrilatha123@gmail.com
