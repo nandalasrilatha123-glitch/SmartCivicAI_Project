@@ -1,0 +1,47 @@
+# ==========================================================
+# SmartCivicAI backend requirements
+# Target interpreter: Python 3.12 (verified — see backend/Dockerfile).
+# ==========================================================
+#
+# All packages below have been installed and exercised together against
+# a live Postgres database on Python 3.12.3 with no compatibility issues.
+# The core web application (auth, complaints, dashboards, GIS fallback,
+# notifications) has ZERO dependency on xgboost/scikit-learn/ultralytics
+# and will run with only this file. See requirements-ai.txt for those
+# optional extras.
+
+# ---------- Core web framework ----------
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+python-multipart==0.0.20
+
+# ---------- Database ----------
+sqlalchemy==2.0.36
+alembic==1.14.0
+psycopg[binary]==3.2.13
+
+# ---------- Auth / security ----------
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+# NOTE: pinned <4.1 on purpose — passlib 1.7.4's bcrypt backend probes
+# bcrypt.__about__.__version__, which bcrypt>=4.1 removed. bcrypt>=4.1
+# still works for hashing/verifying but passlib logs a spurious
+# "(trapped) error reading bcrypt version" traceback on every single call.
+bcrypt==4.0.1
+
+# ---------- Utilities ----------
+python-dotenv==1.0.1
+email-validator==2.2.0
+Pillow==11.0.0
+python-slugify==8.0.4
+httpx==0.28.1
+
+# ---------- Email ----------
+# uses stdlib smtplib + email.mime — no extra package required
+
+# ---------- Language detection / lightweight NLP (no heavy ML) ----------
+langdetect==1.0.9
+
+# See requirements-ai.txt for optional YOLOv8 / scikit-learn / xgboost / LangGraph deps.

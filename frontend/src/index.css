@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-feature-settings: "kern";
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: theme("fontFamily.display");
+  }
+}
+
+@layer components {
+  /* Ink-stamp status badge: circular, slightly rotated, dashed ring —
+     evokes a government office stamp rather than a generic SaaS pill. */
+  .stamp {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-dashed
+      px-4 py-1.5 text-xs font-semibold tracking-wide;
+    transform: rotate(-3deg);
+  }
+
+  /* Module plaque: flat rectangle with a colored left bar, no shadow soup */
+  .plaque {
+    @apply relative border border-ink/10 bg-paper-raised pl-5 pr-4 py-5 flex flex-col gap-1
+      transition-colors hover:bg-white;
+  }
+  .plaque::before {
+    content: "";
+    @apply absolute left-0 top-0 h-full w-1.5;
+    background: var(--plaque-color, theme("colors.ink.DEFAULT"));
+  }
+
+  /* Ledger row divider — perforated ticket feel for complaint lists */
+  .ledger-row {
+    @apply border-b border-dashed border-ink/15 py-4;
+  }
+  .ledger-row:last-child {
+    @apply border-b-0;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink text-paper px-5 py-2.5
+      font-medium hover:bg-ink-soft transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border border-ink/30 text-ink px-5 py-2.5
+      font-medium hover:border-ink hover:bg-white transition-colors disabled:opacity-50;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 bg-marigold text-ink px-5 py-2.5
+      font-semibold hover:bg-marigold-dark transition-colors disabled:opacity-50;
+  }
+
+  .field-label {
+    @apply block text-sm font-medium text-ink-soft mb-1.5;
+  }
+  .field-input {
+    @apply w-full border border-ink/20 bg-white px-3.5 py-2.5 text-ink placeholder:text-ink-faint
+      focus:outline-none focus:ring-2 focus:ring-marigold/50 focus:border-marigold transition-shadow;
+  }
+}

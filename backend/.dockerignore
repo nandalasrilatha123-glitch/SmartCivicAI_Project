@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+uploads/
+models/trained/
+.git/
+.pytest_cache/
+alembic/versions/__pycache__/

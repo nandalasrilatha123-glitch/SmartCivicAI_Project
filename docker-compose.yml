@@ -1,0 +1,67 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: smartcivicai-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: smartcivic_user
+      POSTGRES_PASSWORD: smartcivic_pass
+      POSTGRES_DB: smartcivicai
+    ports:
+      - "5432:5432"
+    volumes:
+      - smartcivicai_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartcivic_user -d smartcivicai"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        INSTALL_AI_EXTRAS: "false" # set to "true" to bake in langgraph/anthropic/sklearn/xgboost/ultralytics
+    container_name: smartcivicai-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DATABASE_URL: postgresql+psycopg://smartcivic_user:smartcivic_pass@db:5432/smartcivicai
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-CHANGE_ME_TO_A_LONG_RANDOM_SECRET}
+      FRONTEND_ORIGIN: http://localhost:5173
+      AI_PROVIDER: ${AI_PROVIDER:-demo}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      CV_PROVIDER: ${CV_PROVIDER:-demo}
+      PREDICTION_PROVIDER: ${PREDICTION_PROVIDER:-demo}
+      EMAIL_ENABLED: ${EMAIL_ENABLED:-false}
+      APP_EMAIL: ${APP_EMAIL:-smartcivicai.project@gmail.com}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-nandalasrilatha123@gmail.com}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD:-}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+      SEED_ON_START: ${SEED_ON_START:-false}
+    ports:
+      - "8000:8000"
+    volumes:
+      - smartcivicai_uploads:/app/uploads
+      - smartcivicai_models:/app/models/trained
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+    container_name: smartcivicai-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  smartcivicai_pg_data:
+  smartcivicai_uploads:
+  smartcivicai_models:
