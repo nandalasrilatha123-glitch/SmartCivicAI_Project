@@ -58,18 +58,19 @@ class Settings(BaseSettings):
     UPLOAD_DIR: str = "uploads"
     ALLOWED_IMAGE_EXTENSIONS: str = ".jpg,.jpeg,.png,.webp"
 
-    @property
+       @property
     def allowed_image_extensions_list(self) -> List[str]:
         return [ext.strip().lower() for ext in self.ALLOWED_IMAGE_EXTENSIONS.split(",")]
 
     @property
-def cors_origins(self) -> List[str]:
-    return [
-        self.FRONTEND_ORIGIN,
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://smartcivicai-frontend.onrender.com",
-    ]
+    def cors_origins(self) -> List[str]:
+        return [
+            self.FRONTEND_ORIGIN,
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "https://smartcivicai-frontend.onrender.com",
+        ]
+
 
 @lru_cache
 def get_settings() -> Settings:
