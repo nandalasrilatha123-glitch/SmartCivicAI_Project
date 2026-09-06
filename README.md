@@ -67,4 +67,8 @@ This project can be deployed on Render using GitHub integration.
 
 ## Author
 
-Srilatha
+## Author
+
+**Srilatha Nandala**
+- GitHub: nandalasrilatha123-glitch
+- Email: nandalasrilatha123@gmail.com
