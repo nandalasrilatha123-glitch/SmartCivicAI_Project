@@ -67,4 +67,4 @@ This project can be deployed on Render using GitHub integration.
 
 ## Author
 
-Bharath
+Srilatha
