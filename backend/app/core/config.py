@@ -63,9 +63,13 @@ class Settings(BaseSettings):
         return [ext.strip().lower() for ext in self.ALLOWED_IMAGE_EXTENSIONS.split(",")]
 
     @property
-    def cors_origins(self) -> List[str]:
-        return [self.FRONTEND_ORIGIN, "http://localhost:5173", "http://127.0.0.1:5173"]
-
+def cors_origins(self) -> List[str]:
+    return [
+        self.FRONTEND_ORIGIN,
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://smartcivicai-frontend.onrender.com",
+    ]
 
 @lru_cache
 def get_settings() -> Settings:
