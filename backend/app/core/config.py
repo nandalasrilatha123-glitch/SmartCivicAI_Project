@@ -58,7 +58,7 @@ class Settings(BaseSettings):
     UPLOAD_DIR: str = "uploads"
     ALLOWED_IMAGE_EXTENSIONS: str = ".jpg,.jpeg,.png,.webp"
 
-       @property
+    @property
     def allowed_image_extensions_list(self) -> List[str]:
         return [ext.strip().lower() for ext in self.ALLOWED_IMAGE_EXTENSIONS.split(",")]
 
